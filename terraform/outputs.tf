@@ -17,13 +17,3 @@ output "deployment_strategy_id" {
   description = "AWS AppConfig Deployment Strategy ID"
   value       = aws_appconfig_deployment_strategy.quick_deployment.id
 }
-
-output "deployment_id" {
-  description = "AWS AppConfig Deployment ID"
-  value       = aws_appconfig_deployment.feature_flags_deployment.id
-}
-
-output "deployment_status" {
-  description = "AWS AppConfig Deployment Status"
-  value       = aws_appconfig_deployment.feature_flags_deployment.state
-}
