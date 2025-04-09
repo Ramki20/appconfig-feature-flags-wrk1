@@ -62,13 +62,3 @@ resource "aws_appconfig_hosted_configuration_version" "feature_flags_version" {
   }
   
 }
-
-# Deploy Configuration
-resource "aws_appconfig_deployment" "feature_flags_deployment" {
-  application_id           = aws_appconfig_application.feature_flags_app.id
-  configuration_profile_id = aws_appconfig_configuration_profile.feature_flags_profile.configuration_profile_id
-  configuration_version    = aws_appconfig_hosted_configuration_version.feature_flags_version.version_number
-  deployment_strategy_id   = aws_appconfig_deployment_strategy.quick_deployment.id
-  environment_id           = aws_appconfig_environment.feature_flags_env.environment_id
-  description              = "Deployment of ${var.config_file_name} version ${var.config_version} to ${var.environment}"
-}
