@@ -52,7 +52,7 @@ resource "aws_appconfig_hosted_configuration_version" "feature_flags_version" {
   description              = "Feature flags configuration version ${var.config_version}"
   content_type             = "application/json"
   
-  content = file("/var/jenkins_home/workspace/aws-appconfig-job/config/tst_feature_flags.json")
+  content = file("/var/jenkins_home/workspace/appconfig-feature-flags-wrk1/config/tst_feature_flags.json")
   
   # Add lifecycle block to ignore changes to content
   lifecycle {
