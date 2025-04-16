@@ -31,7 +31,7 @@ pipeline {
                     // Extract configuration file name without extension
                     env.CONFIG_FILE_NAME = params.CONFIG_FILE.replaceAll('\\.json$', '')
                     
-                    env.CONFIG_VERSION = 1
+                    env.CONFIG_VERSION = 2
                     
                     echo "Configuration file: ${env.CONFIG_FILE_NAME}"
                     echo "Environment (branch): ${env.BRANCH_NAME}"
