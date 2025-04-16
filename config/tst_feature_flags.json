@@ -21,6 +21,9 @@
         "farm_operating_plan" : {
             "name" : "farm_operating_plan"
         },
+		"farm_operating_plan2" : {
+		    "name" : "farm_operating_plan2"
+		},
         "specific_ccids" : {
             "name" : "specific_ccids",
             "attributes" : {
@@ -66,6 +69,9 @@
         "farm_operating_plan" : {
             "enabled" : "true"
         },
+		"farm_operating_plan2" : {
+		    "enabled" : "true"
+		},
         "specific_ccids" : {
             "enabled" : "true",
             "allowed_ccids" : [1001, 1002, 1003]
