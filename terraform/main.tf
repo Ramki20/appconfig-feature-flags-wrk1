@@ -52,6 +52,11 @@ resource "aws_appconfig_hosted_configuration_version" "feature_flags_version" {
   description              = "Feature flags configuration version ${var.config_version}"
   content_type             = "application/json"
   
-  content = file("/var/jenkins_home/workspace/appconfig-feature-flags-wrk1/config/tst_feature_flags.json")
+  #content = file("/var/jenkins_home/workspace/appconfig-feature-flags-wrk1/config/tst_feature_flags.json")
+  #Use file content plus a timestamp or other changing value
+  content                  = jsonencode({
+    data = jsondecode(file("/var/jenkins_home/workspace/appconfig-feature-flags-wrk1/config/tst_feature_flags.json"))
+    deployment_timestamp   = timestamp()  # This forces a new resource on every apply
+  })
   
 }
