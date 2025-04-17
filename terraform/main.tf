@@ -52,13 +52,17 @@ resource "aws_appconfig_hosted_configuration_version" "feature_flags_version" {
   description = "Feature flags configuration version ${var.config_version}"
   content_type = "application/json"
 
-  # Read the file, parse it as JSON, modify the version, and convert back to JSON
+  # Read the file, parse it as JSON, ensure version=1, and add a timestamp comment
   content = jsonencode(
     merge(
       jsondecode(file("/var/jenkins_home/workspace/appconfig-feature-flags-wrk1/config/tst_feature_flags.json")),
       {
-        # Update the version field to include the timestamp
-        version = "${var.config_version}-${formatdate("YYYYMMDDhhmmss", timestamp())}"
+        # Set version to exactly 1 as required
+        version = 1,
+        # Add a metadata field that won't affect schema validation
+        _metadata = {
+          deployed_at = timestamp()
+        }
       }
     )
   )
@@ -67,5 +71,4 @@ resource "aws_appconfig_hosted_configuration_version" "feature_flags_version" {
     create_before_destroy = true
   }
 }
-
 
