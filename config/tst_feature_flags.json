@@ -9,11 +9,11 @@
         "feedback" : {
             "name" : "feedback"
         },
-        "feedback2" : {
-            "name" : "feedback2"
-        },
         "google_analytics" : {
             "name" : "google_analytics"
+        },
+        "google_analytics2" : {
+            "name" : "google_analytics2"
         },
         "angular_console_logs" : {
             "name" : "angular_console_logs"
@@ -57,10 +57,10 @@
         "feedback" : {
             "enabled" : "true"
         },
-        "feedback2" : {
+        "google_analytics" : {
             "enabled" : "true"
         },
-        "google_analytics" : {
+        "google_analytics2" : {
             "enabled" : "true"
         },
         "angular_console_logs" : {
