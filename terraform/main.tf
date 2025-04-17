@@ -52,16 +52,20 @@ resource "aws_appconfig_hosted_configuration_version" "feature_flags_version" {
   description = "Feature flags configuration version ${var.config_version}"
   content_type = "application/json"
 
-  #content = file("/var/jenkins_home/workspace/appconfig-feature-flags-wrk1/config/tst_feature_flags.json")
-  # Read the original file content
-  content = templatefile("/var/jenkins_home/workspace/appconfig-feature-flags-wrk1/config/tst_feature_flags.json", {
-    # Add the current timestamp as a comment or in a way that doesn't break the schema
-    # This is just a variable substitution - your JSON file needs to have a ${timestamp} placeholder
-    timestamp = timestamp()
-  })
+  # Read the file, parse it as JSON, modify the version, and convert back to JSON
+  content = jsonencode(
+    merge(
+      jsondecode(file("/var/jenkins_home/workspace/appconfig-feature-flags-wrk1/config/tst_feature_flags.json")),
+      {
+        # Update the version field to include the timestamp
+        version = "${var.config_version}-${formatdate("YYYYMMDDhhmmss", timestamp())}"
+      }
+    )
+  )
 
   lifecycle {
     create_before_destroy = true
   }
 }
+
 
