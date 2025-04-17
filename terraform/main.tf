@@ -47,20 +47,10 @@ resource "aws_appconfig_deployment_strategy" "quick_deployment" {
 
 # Hosted Configuration Version
 resource "aws_appconfig_hosted_configuration_version" "feature_flags_version" {
-  application_id = aws_appconfig_application.feature_flags_app.id
+  application_id           = aws_appconfig_application.feature_flags_app.id
   configuration_profile_id = aws_appconfig_configuration_profile.feature_flags_profile.configuration_profile_id
-  description = "Feature flags configuration version ${var.config_version}"
-  content_type = "application/json"
-
-  # This approach ensures the version field exists and is set to 1
-  content = jsonencode(
-    merge(
-      {
-        "version": 1,
-        "_deployment_id": formatdate("YYYYMMDDhhmmss", timestamp())
-      },
-      jsondecode(file("/var/jenkins_home/workspace/appconfig-feature-flags-wrk1/config/tst_feature_flags.json"))
-    )
-  )
-
+  description              = "Feature flags configuration version ${var.config_version}"
+  content_type             = "application/json"
+  
+  content = file("/var/jenkins_home/workspace/appconfig-feature-flags-wrk1/config/tst_feature_flags.json")
 }
