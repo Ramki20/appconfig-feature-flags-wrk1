@@ -63,7 +63,4 @@ resource "aws_appconfig_hosted_configuration_version" "feature_flags_version" {
     )
   )
 
-  lifecycle {
-    create_before_destroy = true
-  }
 }
