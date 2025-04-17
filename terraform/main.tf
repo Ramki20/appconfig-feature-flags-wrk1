@@ -47,16 +47,21 @@ resource "aws_appconfig_deployment_strategy" "quick_deployment" {
 
 # Hosted Configuration Version
 resource "aws_appconfig_hosted_configuration_version" "feature_flags_version" {
-  application_id           = aws_appconfig_application.feature_flags_app.id
+  application_id = aws_appconfig_application.feature_flags_app.id
   configuration_profile_id = aws_appconfig_configuration_profile.feature_flags_profile.configuration_profile_id
-  description              = "Feature flags configuration version ${var.config_version}"
-  content_type             = "application/json"
-  
+  description = "Feature flags configuration version ${var.config_version}"
+  content_type = "application/json"
+
   #content = file("/var/jenkins_home/workspace/appconfig-feature-flags-wrk1/config/tst_feature_flags.json")
-  #Use file content plus a timestamp or other changing value
-  content                  = jsonencode({
-    data = jsondecode(file("/var/jenkins_home/workspace/appconfig-feature-flags-wrk1/config/tst_feature_flags.json"))
-    deployment_timestamp   = timestamp()  # This forces a new resource on every apply
+  # Read the original file content
+  content = templatefile("/var/jenkins_home/workspace/appconfig-feature-flags-wrk1/config/tst_feature_flags.json", {
+    # Add the current timestamp as a comment or in a way that doesn't break the schema
+    # This is just a variable substitution - your JSON file needs to have a ${timestamp} placeholder
+    timestamp = timestamp()
   })
-  
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
+
